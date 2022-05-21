@@ -10,7 +10,8 @@
 <br>
 
 ### Network Topology
-![Topology](Images/Defensive/Project3-NetworkTopology.drawio.png)
+<img width="511" alt="image" src="https://user-images.githubusercontent.com/101371476/169627420-8255605c-a901-4d48-be81-354d2b1c6532.png">
+
 
 The following machines were identified on the network:
 - Kali
@@ -69,7 +70,8 @@ Traffic to these services should be carefully monitored. To this end, we have im
   - **Vulnerability Mitigated**: Bruteforce Attacks, DoS Attacks, Enumeration
   - **Reliability**: This would be high reliability as this alert would generate lots of True Positives. With the Threshhold set with certain time, this would definately help with the alert system.
   - `WHEN count() GROUPED OVER top 5 'http.response.status_code' IS ABOVE 400 FOR THE LAST 5 minutes`
-  ![Excessive_HTTP_Errors](Images/Defensive/Excessive_HTTP_Errors.png)
+  ![image](https://user-images.githubusercontent.com/101371476/169627697-04bd3819-9c0c-44bd-904b-0d5013407ca5.png)
+
 
 <br>
 
@@ -80,7 +82,8 @@ Traffic to these services should be carefully monitored. To this end, we have im
   - **Vulnerability Mitigated**: large Files that are being transferred, HTTP request Smuggling Vulnerability
   - **Reliability**: This would be medium reliability, as alerts would generate somewhat of false positives. There might be a large file that is being transferred over within the network for work purposes. It's not too reliable to catch the the malicious files.
   - `WHEN sum() of http.request.bytes OVER all documents IS ABOVE 3500 FOR THE LAST 1 minute`
-  ![HTTP_Request_Size](Images/Defensive/HTTP_Request_Size.png)
+  ![image](https://user-images.githubusercontent.com/101371476/169627917-11493d3c-2d2e-47e8-bcc3-f179e0976272.png)
+
 
 <br>
 
@@ -91,7 +94,8 @@ Traffic to these services should be carefully monitored. To this end, we have im
   - **Vulnerability Mitigated**: DoS Attacks
   - **Reliability**: This would be low reliability, as so many alearts would generate with falt positives. CPU could spike up when there are alot of resources being consumed due to many different reasons. You might possibly have exploit file that's being ran can also consome large amount of resources.
    - `WHEN max() OF system.process.cpu.total.pct OVER all documents IS ABOVE 0.5 FOR THE LAST 5 minutes`
-   ![CPU_Usage](Images/Defensive/CPU_Usage.png)
+   ![image](https://user-images.githubusercontent.com/101371476/169627971-de0f3bd9-b9f1-4173-9c74-3cf323725b55.png)
+
 
 <br>
 <br>
