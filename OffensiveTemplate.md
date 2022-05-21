@@ -11,9 +11,12 @@
 
 Nmap scan results for each machine reveal the below services and OS details:
 
-![Nmap_Scan_1](Images/Offensive/nmap_vros_1.png)
-![Nmap_Scan_2](Images/Offensive/nmap_vros_2.png)
-![Nmap_Scan_3](Images/Offensive/nmap_vros_3.png)
+<img width="481" alt="harding tag4" src="https://user-images.githubusercontent.com/101371476/169629021-c499056c-7d9b-4bad-b2ec-38dcc9b46524.PNG">
+
+![image](https://user-images.githubusercontent.com/101371476/169629091-52efa10e-4ec0-4445-bd4e-bcfb0740288f.png)
+
+![image](https://user-images.githubusercontent.com/101371476/169629105-1b50b74d-8f3b-4980-a7ea-0dd776f3af80.png)
+
 
 This scan identifies the services below as potential points of entry:
 - Target 1 (192.168.1.110)
@@ -37,8 +40,11 @@ This scan identifies the services below as potential points of entry:
 Also since we know that Target 1 server runs WordPress server, <br>
 WPScan was run for Target 1 to reveal the below vulnerabilities:
 
-![WPScan1](Images/Offensive/wpscan_target1_1.png)
-![WPScan2](Images/Offensive/wpscan_target1_2.png)
+<img width="339" alt="offensive 4" src="https://user-images.githubusercontent.com/101371476/169629493-86dec876-c223-43f1-8d96-df2f50b57a71.PNG">
+
+<img width="325" alt="offensive 5" src="https://user-images.githubusercontent.com/101371476/169629516-37258a0b-e524-4983-8361-972f0fbf6edf.PNG">
+
+<img width="307" alt="offensive 6" src="https://user-images.githubusercontent.com/101371476/169629528-c746f599-192a-4c21-bcb0-3f4e65bae7ff.PNG">
 
 The following vulnerabilities were identified on each target:
 - Target 1
@@ -105,42 +111,55 @@ The Red Team was able to penetrate `Target 1` and retrieve the following confide
       - With the WPScan above, username of the Target 1 WordPress Server found are: steven and michael.
       - We were told to guess the michael's password, with the hint 'most obvious possible guess'. 
       - Guessed the same pw as the Id, which worked (Bad Practice). (pw: michael)
-      ![SSH_Michael](Images/Offensive/michaelssh.png)
-      ![FLAG1](Images/Offensive/flag1.png)
+      <img width="334" alt="offensive7" src="https://user-images.githubusercontent.com/101371476/169629830-778b4102-395e-4732-9c0a-d48f7ae30ae3.PNG">
+
+      ![image](https://user-images.githubusercontent.com/101371476/169629838-5c9ac88a-3c07-41f2-b0e0-1c911a485196.png)
+
 
   - `flag2.txt`: fc3fd58dcdad9ab23faca6e9a36e581c
     - **Exploit Used**
       - flag 2 was in the system, directory `/var/www/` <br>
-      ![FLAG2](Images/Offensive/flag2.png)
+      ![flag2 1](https://user-images.githubusercontent.com/101371476/169629950-1e7a5602-658a-4568-95a1-48c0d247f362.png)
+
 
   - `flag3.txt`: afc01ab56b50591e7dccf93122770cd2
     - **Exploit Used**
       - MySQL is being run as a database for WordPress.
       - to find the authentication for the MySQL database, configuration file was needed.
       - wp-config.php was spotted.<br>
-      ![MySQLconfig](Images/Offensive/MySQLconfig.png)
-      ![wp-config.php](Images/Offensive/wp-config.php.png)
+      <img width="287" alt="offensive 9" src="https://user-images.githubusercontent.com/101371476/169630658-54037db8-c37e-4a1c-85d7-43b28bae8d04.PNG">
+      <img width="338" alt="offensive 9 2" src="https://user-images.githubusercontent.com/101371476/169630674-100993d8-24df-4d48-acab-602e5a27ddae.PNG">
       - using the credentials to log into MySQL, searched through database.
-      ![mysql_login](Images/Offensive/mysql_login.png)
-      ![mysql_database](Images/Offensive/mysql_database.png)`
+      <img width="344" alt="offensive 9 3" src="https://user-images.githubusercontent.com/101371476/169630727-cf116add-804d-4d31-9eb8-6a86aad7f3dc.PNG">
+
+      <img width="482" alt="offensive 9 4" src="https://user-images.githubusercontent.com/101371476/169630746-76cdb40d-87ce-4e72-a4ce-dbcf239d70a7.PNG">
+
        - Command used to get the Flag 3: `select * from wp_posts;`
-      ![FLAG3](Images/Offensive/flag3.png)
+      ![offensive 9 5](https://user-images.githubusercontent.com/101371476/169630759-c6e39636-45e8-4868-b95f-7b32cd52c723.png)
+
       - Flag 3 was exploised while getting to that step.
 
   - `flag4.txt`: 715dea6c055b9fe3337544932f2941ce
     - **Exploit Used**
       - While going through the MySQL database, WordPress user password hashes were dumped out of database to get Steven's pw.
-      ![mysql_usr](Images/Offensive/mysql_usr.png)
+      ![offensive 9 88](https://user-images.githubusercontent.com/101371476/169631946-f297920c-5172-4c60-b0f9-3fa9d61d3697.png)
+
       - With these hashes, created a file called `wp_hashes.txt` with Steven & Michael's hashes:
-      ![wp_hashes](Images/Offensive/wp_hashes.png)
+      ![offensive 9 99](https://user-images.githubusercontent.com/101371476/169632140-3c3cfe2f-1839-4782-ba29-d2fe04eb43aa.png)
+
       - Then, cracked password hashes with `John the Ripper`.
-      ![john_wp_hashes](Images/Offensive/john_wp_hashes.png)
+      ![offensive 9 10](https://user-images.githubusercontent.com/101371476/169632341-2f2324d7-b68d-40dc-8fe6-76c1f59b5870.png)
+
       - with the cracked password for Steven, SSH into Steven's user shell
-      ![SSH_Steven](Images/Offensive/stevenssh.png)
+      <img width="365" alt="offensive 9 11" src="https://user-images.githubusercontent.com/101371476/169632558-293c0a44-a65d-4c76-bda7-21887661ff4e.PNG">
+
       - Checked the status of the user account to see if escalation to root can be obtained.
-      ![Sudo_Steven_1](Images/Offensive/Sudo_steven_1.png)
-      ![Sudo_Steven_2](Images/Offensive/Sudo_steven_2.png)
-      ![Sudo_Steven_3](Images/Offensive/Sudo_steven_3.png)
+      <img width="361" alt="offensive 9 12" src="https://user-images.githubusercontent.com/101371476/169632623-78c4447b-e638-493e-84d5-981c7bc0e94c.PNG">
+
+      ![offensive 9 13](https://user-images.githubusercontent.com/101371476/169632635-69b387a9-de19-47f1-837f-1d85ca7446d2.png)
+
+      ![offensive 9 14](https://user-images.githubusercontent.com/101371476/169632660-421db2b6-1956-4686-be20-6155d619a8ec.png)
+
 
 <br>
 <br>
